@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  thumb
+
+Parameters:
+  AppBucketName:
+    Type: String
+    Description: "REQUIRED: Unique S3 bucket name to use for the app."
+
+Resources:
+  S3TriggerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/s3-trigger.s3TriggerHandler
+      Runtime: nodejs14.x
+      MemorySize: 128
+      Timeout: 60
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref AppBucketName
+        - S3WritePolicy:
+            BucketName: !Ref OutputBucket
+      Events:
+        S3NewObjectEvent:
+          Type: S3
+          Properties:
+            Bucket: !Ref InputBucket
+            Events: s3:ObjectCreated:*
+  #            Filter:
+  #              S3Key:
+  #                Rules:
+  #                  - Name: suffix
+  #                    Value: ".jpg"
+  InputBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref AppBucketName
+  #      DeletionPolicy: Retain
+  OutputBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AppBucketName}-output
+#Outputs:
+#  BucketName:
+#    Value: !Get AppBucket.

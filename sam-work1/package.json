@@ -1,0 +1,13 @@
+{
+  "name": "replaced-by-user-input",
+  "description": "replaced-by-user-input",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.799.0",
+    "sharp": "^0.28.3"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

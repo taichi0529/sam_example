@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "hogehoge"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-g71fqs91ss2i"
+s3_prefix = "hogehoge"
+region = "ap-northeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "AppBucketName=\"hogehoge-test-hoge\""
+image_repositories = []
